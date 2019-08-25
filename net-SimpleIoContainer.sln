@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrionikUA.SimpleIoContainer", "OrionikUA.SimpleIoContainer\OrionikUA.SimpleIoContainer.csproj", "{33C0BBF2-840D-4440-B2C6-515499B5592A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrionikUA.SimpleIoContainer.Tests", "OrionikUA.SimpleIoContainer.Tests\OrionikUA.SimpleIoContainer.Tests.csproj", "{D0B75F75-16C4-4681-8069-00D040A055EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33C0BBF2-840D-4440-B2C6-515499B5592A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C0BBF2-840D-4440-B2C6-515499B5592A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C0BBF2-840D-4440-B2C6-515499B5592A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C0BBF2-840D-4440-B2C6-515499B5592A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B75F75-16C4-4681-8069-00D040A055EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B75F75-16C4-4681-8069-00D040A055EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B75F75-16C4-4681-8069-00D040A055EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B75F75-16C4-4681-8069-00D040A055EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {381996D7-AB47-41C8-BD6F-6AEF7BA2D0FB}
+	EndGlobalSection
+EndGlobal
