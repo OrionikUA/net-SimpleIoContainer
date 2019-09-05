@@ -6,6 +6,7 @@
     <Company>OrioninUA</Company>
     <Product>SimpleIoContainer</Product>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
 </Project>

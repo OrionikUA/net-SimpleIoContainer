@@ -12,9 +12,8 @@ namespace OrionikUA.SimpleIoContainer
             _func = func;
         }
 
-        public object Activation()
-        {
-            return _item ?? (_item = _func());
-        }
+        public object Activation() => _item ?? (_item = NewActivation());
+
+        public object NewActivation() => _func?.Invoke();
     }
 }

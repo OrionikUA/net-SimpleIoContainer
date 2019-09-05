@@ -1,6 +1,6 @@
 ﻿namespace OrionikUA.SimpleIoContainer.Tests.Helpers
 {
-    public class BaseClass : BaseAbstractClass
+    public interface IBaseClass
     {
         
     }
