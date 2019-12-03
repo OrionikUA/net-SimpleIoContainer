@@ -7,6 +7,9 @@ namespace OrionikUA.SimpleIoContainer
 {
     public class IoContainer
     {
+        private static IoContainer _instance;
+        public static IoContainer Default => _instance ?? (_instance = new IoContainer());
+
         private readonly Dictionary<Type, Creator> _dictionary = new Dictionary<Type, Creator>();
 
         public void Register<TInterface, T>(Func<T> func) where T : TInterface
