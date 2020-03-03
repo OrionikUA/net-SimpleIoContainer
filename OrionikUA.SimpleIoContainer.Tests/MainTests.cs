@@ -235,5 +235,42 @@ namespace OrionikUA.SimpleIoContainer.Tests
             _container.Register<BaseAbstractClass, BaseClass>();
             _container.Register<BaseAbstractClass, BaseClass>();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(MoreThanOneConstructorException))]
+        public void SeveralConstructorsTest()
+        {
+            _container.Register<BaseClass>();
+            _container.Register<SecondClass>();
+            _container.Register<SeveralConstructorsClass>();
+
+            _container.GetInstance<SeveralConstructorsClass>();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(MoreThanOneConstructorException))]
+        public void SeveralConstructorsWithSeveralPreferredAttributesClassTest()
+        {
+            _container.Register<BaseClass>();
+            _container.Register<SecondClass>();
+            _container.Register<SeveralConstructorsWithSeveralPreferredAttributesClass>();
+
+            _container.GetInstance<SeveralConstructorsWithSeveralPreferredAttributesClass>();
+        }
+        
+        [TestMethod]
+        public void SeveralConstructorsWithPreferredAttributeClassTest()
+        {
+            _container.Register<BaseClass>();
+            _container.Register<SecondClass>();
+            _container.Register<SeveralConstructorsWithPreferredAttributeClass>();
+
+            var obj = _container.GetInstance<SeveralConstructorsWithPreferredAttributeClass>();
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(obj.Type);
+            Assert.AreEqual(obj.Type, typeof(SecondClass));
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using OrionikUA.SimpleIoContainer.Exceptions;
 
 namespace OrionikUA.SimpleIoContainer
@@ -47,13 +48,45 @@ namespace OrionikUA.SimpleIoContainer
             AddToDictionary(type, CreateCreatorByConstructor(type));
         }
 
+        public void Register<T>(params TypeCreator[] creators)
+        {
+
+        }
+
         private Creator CreateCreatorByConstructor(Type type)
         {
             return new Creator(() =>
             {
                 var constructors = type.GetConstructors();
-                return Activator.CreateInstance(type, constructors.First().GetParameters().Select(parameterInfo => GetInstance(parameterInfo.ParameterType)).ToArray());
+                var constructor = GetConstructor(constructors, type);
+                return Activator.CreateInstance(type, constructor.GetParameters().Select(parameterInfo => GetInstance(parameterInfo.ParameterType)).ToArray());
             });
+        }
+
+        private ConstructorInfo GetConstructor(ConstructorInfo[] constructors, Type type)
+        {
+            if (constructors.Length == 1)
+                return constructors.First();
+            if (constructors.Length > 1)
+            {
+                var count = 0;
+                ConstructorInfo selectedConstructor = null;
+                foreach (var constructorInfo in constructors)
+                {
+                    if (constructorInfo.GetCustomAttributes<PreferredConstructorForContainer>().Any())
+                    {
+                        selectedConstructor = constructorInfo;
+                        count++;
+                    }
+                }
+
+                if (count == 0)
+                    throw new MoreThanOneConstructorException(type, true);
+                if (count > 1)
+                    throw new MoreThanOneConstructorException(type, false);
+                return selectedConstructor;
+            }
+            throw new ArgumentException("There are no constructors");
         }
 
         private void AddToDictionary(Type type, Creator creator)
@@ -66,10 +99,27 @@ namespace OrionikUA.SimpleIoContainer
             return (T) GetInstance(typeof(T));
         }
 
+        public bool CanGetInstance<T>()
+        {
+            var type = typeof(T);
+            return _dictionary.ContainsKey(type);
+        }
+
+        public bool TryGetInstance<T>(out T obj)
+        {
+            if (CanGetInstance<T>())
+            {
+                obj = (T)GetInstance(typeof(T));
+                return true;
+            }
+            obj = default;
+            return false;
+        }
+
         public T GetNewInstance<T>()
         {
             var type = typeof(T);
-            if (!_dictionary.ContainsKey(type))
+            if (!CanGetInstance<T>())
                 throw new TypeNotRegisteredException(type);
             return (T) _dictionary[type].NewActivation();
         }
